@@ -38,6 +38,7 @@ class AskView(View):
         # Load the index from disk
         load_dotenv()
         openai_api_key = os.environ.get('OPENAI_API_KEY')
+        #do it if your json file will be loading on your disk otherrwise make sure to connect in the link of your dbs
         index_file_path = os.path.join(settings.BASE_DIR, '', '')
         index = GPTSimpleVectorIndex.load_from_disk(index_file_path)
         QA_PROMPT_TMPL = (
@@ -50,4 +51,6 @@ class AskView(View):
         QA_PROMPT = QuestionAnswerPrompt(QA_PROMPT_TMPL)
         answer = index.query(query_str, text_qa_template=QA_PROMPT)
         return JsonResponse({'answer': answer.response})
+
+
 
